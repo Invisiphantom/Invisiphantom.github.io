@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.ethancao.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"www.ethancao.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
@@ -114,6 +114,11 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
@@ -177,7 +182,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-02 09:19:07" itemprop="dateModified" datetime="2023-12-02T09:19:07+08:00">2023-12-02</time>
+                <time title="修改时间：2023-12-02 11:18:51" itemprop="dateModified" datetime="2023-12-02T11:18:51+08:00">2023-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,8 +264,93 @@
 <h3 id="修改行内代码样式"><a href="#修改行内代码样式" class="headerlink" title="修改行内代码样式"></a>修改行内代码样式</h3><p>在<code>theme/next/source/css/main.styl</code>末尾添加</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">code</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">2px</span> <span class="number">4px</span>;</span><br><span class="line">  <span class="attribute">word-wrap</span>: break-word;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#cccccc</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#474747</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">18px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="启用Gitalk评论区"><a href="#启用Gitalk评论区" class="headerlink" title="启用Gitalk评论区"></a>启用Gitalk评论区</h3><p><img src="/Skill/Hexo+Github%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/Hexo+Github%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE-10.png"></p>
+
+<h3 id="启用pjax和fancybox"><a href="#启用pjax和fancybox" class="headerlink" title="启用pjax和fancybox"></a>启用pjax和fancybox</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Easily enable fast Ajax navigation on your website.</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/theme-next/theme-next-pjax</span></span><br><span class="line"><span class="attr">pjax:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># FancyBox is a tool that offers a nice and elegant way to add zooming functionality for images.</span></span><br><span class="line"><span class="comment"># For more information: https://fancyapps.com/fancybox</span></span><br><span class="line"><span class="attr">fancybox:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Internal version: 0.2.8</span></span><br><span class="line"><span class="attr">pjax:</span> <span class="string">//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># FancyBox</span></span><br><span class="line"><span class="attr">jquery:</span> <span class="string">//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js</span></span><br><span class="line"><span class="attr">fancybox:</span> <span class="string">//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js</span></span><br><span class="line"><span class="attr">fancybox_css:</span> <span class="string">//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>themes/next/source/js/utils.js</code>中配置fancybox</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$.fancybox.<span class="property">defaults</span>.<span class="property">hash</span> = <span class="literal">false</span>;</span><br><span class="line">$(<span class="string">&#x27;.fancybox&#x27;</span>).<span class="title function_">fancybox</span>(&#123;</span><br><span class="line">  <span class="attr">loop</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">wheel</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">arrows</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">infobar</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">toolbar</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">animationDuration</span>: <span class="number">300</span>,</span><br><span class="line">  <span class="attr">helpers</span>: &#123;</span><br><span class="line">    <span class="attr">overlay</span>: &#123;</span><br><span class="line">      <span class="attr">locked</span>: <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>详细配置见<a target="_blank" rel="noopener" href="https://kangkai124.github.io/fancybox/">fancyBox3 中文文档</a></p>
 <h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a target="_blank" rel="noopener" href="https://hexo-next.readthedocs.io/zh-cn/latest/">Hexo-NexT 功能文档</a><br><a target="_blank" rel="noopener" href="https://godweiyang.com/2018/04/13/hexo-blog/#toc-heading-1">超详细Hexo+Github博客搭建小白教程 | 韦阳的博客</a><br><a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next">hexo-theme-next: Elegant and powerful theme for Hexo.</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.ethancao.cn/Coursera/(3)%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E4%B8%8E%E9%83%A8%E4%BB%B6%E8%AE%BE%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ethan Cao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mind City">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Coursera/(3)%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E4%B8%8E%E9%83%A8%E4%BB%B6%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">(3)数字逻辑与部件设计</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-27 21:06:11" itemprop="dateCreated datePublished" datetime="2023-11-27T21:06:11+08:00">2023-11-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-22 19:10:44" itemprop="dateModified" datetime="2023-11-22T19:10:44+08:00">2023-11-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Coursera/" itemprop="url" rel="index"><span itemprop="name">Coursera</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>VSCode + WSL2 + TerosHDL + Verible + Code Runner + Icarus Verilog + GTKWave<br>Vivado + VSCode</p>
+<p><a target="_blank" rel="noopener" href="https://www.chipverify.com/tutorials/verilog">Verilog Tutorials</a><br><a target="_blank" rel="noopener" href="http://www.32x8.com/index.html">Online Karnaugh map solver (32x8.com)</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45297411/article/details/125425897">Nexys A7开发板引脚-CSDN</a><br><a target="_blank" rel="noopener" href="https://youtube.com/playlist?list=PL-iIOnHwN7NXw01eBDR7wI8KzGK4mu8Sr&si=FfaTZ9fYDG3FuQo3">ECE 3300 - Digital Circuit Design Using Verilog</a></p>
+<p><a target="_blank" rel="noopener" href="https://hdlbits.01xz.net/wiki/Problem_sets">Problem sets - HDLBits</a><br><a target="_blank" rel="noopener" href="https://github.com/xiaop1/Verilog-Practice/tree/master">HDLBits practices &amp; solutions</a><br><a target="_blank" rel="noopener" href="http://digitaljs.tilk.eu/">DigitalJS Online (tilk.eu)</a><br><a target="_blank" rel="noopener" href="https://www.falstad.com/circuit/circuitjs.html">Circuit Simulator Applet</a><br><a target="_blank" rel="noopener" href="https://edaplayground.com/">Edit code - EDA Playground</a></p>
+<p><a target="_blank" rel="noopener" href="https://vlab.ustc.edu.cn/guide/doc_verilog.html">Verilog语法 | 教程 (ustc.edu.cn)</a><br><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/verilog-number.html">Verilog 数值表示 | 菜鸟教程 (runoob.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cs.sfu.ca/~ashriram/Courses/CS295/assets/notebooks/RISCV/RISCV_CARD.pdf">RISC-V Reference</a><br><a target="_blank" rel="noopener" href="https://github.com/Invisiphantom/RISC-V-SIngle-Cycle">GitHub - Invisiphantom&#x2F;RISC-V-SIngle-Cycle</a><br><a target="_blank" rel="noopener" href="https://github.com/Invisiphantom/RISC-V-Mult-Cycle">GitHub - Invisiphantom&#x2F;RISC-V-Mult-Cycle</a><br><a target="_blank" rel="noopener" href="https://github.com/Invisiphantom/RISC-V-Pipeline">GitHub - Invisiphantom&#x2F;RISC-V-Pipeline</a></p>
+<p><a target="_blank" rel="noopener" href="https://nju-projectn.github.io/dlco-lecture-note/index.html">南京大学 计算机科学与技术系 数字逻辑与计算机组成 课程实验</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1aK4y1E7nc">FPGA入门学习路线-老石谈芯-bilibili </a><br><a target="_blank" rel="noopener" href="https://space.bilibili.com/243180540/channel/collectiondetail?sid=369150">合集·畅谈 RISC-V 系列_bilibili</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/485020828">第一章 数字逻辑概论 - 知乎 (zhihu.com)</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/488812098">第二章 逻辑代数与硬件描述语言基础 - 知乎 (zhihu.com)</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/493437252">第三章 逻辑门电路 - 知乎 (zhihu.com)</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/539165910">第四章 组合逻辑电路 - 知乎 (zhihu.com)</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/546287566">第五章·锁存器和触发器 - 知乎 (zhihu.com)</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/548544807">第六章·时序逻辑电路 - 知乎 (zhihu.com)</a></p>
 
       
     </div>
@@ -342,16 +432,26 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">分类</span>
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Invisiphantom" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Invisiphantom" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/EthanCao_" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;EthanCao_" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
 
 
 
@@ -375,9 +475,6 @@
   
   &copy; 
   <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
   <span class="author" itemprop="copyrightHolder">Ethan Cao</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
@@ -496,7 +593,6 @@ window.addEventListener('pjax:success', () => {
   
 
   
-
 
     </div>
 </body>
