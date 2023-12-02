@@ -21,15 +21,19 @@
     var CONFIG = {"hostname":"www.ethancao.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Mind City">
-<meta property="og:url" content="http://www.ethancao.cn/archives/2023/12/index.html">
+  <meta name="description" content="SDL2教程【一】环境搭建 - 知乎 (zhihu.com)SDL2教程【二】第一个程序 - 知乎 (zhihu.com)SDL2教程【三】加载图片 - 知乎 (zhihu.com)SDL2教程【四】画方、画线、画圆 - 知乎 (zhihu.com) SDL2 游戏开发最小知识栈 - 没事造轮子 (meishizaolunzi.com)俄罗斯方块 - 没事造轮子 (meishizaolunzi.c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDL2游戏开发">
+<meta property="og:url" content="http://www.ethancao.cn/Skill/SDL2%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/index.html">
 <meta property="og:site_name" content="Mind City">
+<meta property="og:description" content="SDL2教程【一】环境搭建 - 知乎 (zhihu.com)SDL2教程【二】第一个程序 - 知乎 (zhihu.com)SDL2教程【三】加载图片 - 知乎 (zhihu.com)SDL2教程【四】画方、画线、画圆 - 知乎 (zhihu.com) SDL2 游戏开发最小知识栈 - 没事造轮子 (meishizaolunzi.com)俄罗斯方块 - 没事造轮子 (meishizaolunzi.c">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-27T13:06:11.000Z">
+<meta property="article:modified_time" content="2023-07-10T12:54:07.000Z">
 <meta property="article:author" content="Ethan Cao">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://www.ethancao.cn/archives/2023/12/">
+<link rel="canonical" href="http://www.ethancao.cn/Skill/SDL2%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">
 
 
 <script id="page-configurations">
@@ -37,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Mind City</title>
+  <title>SDL2游戏开发 | Mind City</title>
   
 
 
@@ -145,50 +149,93 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">目前共计 3 篇日志</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.ethancao.cn/Skill/SDL2%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ethan Cao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mind City">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SDL2游戏开发
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-27 21:06:11" itemprop="dateCreated datePublished" datetime="2023-11-27T21:06:11+08:00">2023-11-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-10 20:54:07" itemprop="dateModified" datetime="2023-07-10T20:54:07+08:00">2023-07-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Skill/" itemprop="url" rel="index"><span itemprop="name">Skill</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
+        <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/604292617">SDL2教程【一】环境搭建 - 知乎 (zhihu.com)</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/604615788">SDL2教程【二】第一个程序 - 知乎 (zhihu.com)</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/604793165">SDL2教程【三】加载图片 - 知乎 (zhihu.com)</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/604935012">SDL2教程【四】画方、画线、画圆 - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://meishizaolunzi.com/sdl2-you-xi-kai-fa-zui-xiao-zhi-shi-zhan/">SDL2 游戏开发最小知识栈 - 没事造轮子 (meishizaolunzi.com)</a><br><a target="_blank" rel="noopener" href="https://meishizaolunzi.com/cyu-yan-xiao-you-xi-zhi-e-luo-si-fang-kuai/">俄罗斯方块 - 没事造轮子 (meishizaolunzi.com)</a><br><a target="_blank" rel="noopener" href="https://meishizaolunzi.com/e-luo-si-fang-kuai-ai-suan-fa-shi-xian-jiao-cheng/">俄罗斯方块 AI 算法 - 没事造轮子 (meishizaolunzi.com)</a><br><a target="_blank" rel="noopener" href="https://imake.ninja/el-tetris-an-improvement-on-pierre-dellacheries-algorithm/">El-Tetris – An Improvement on Pierre Dellacherie’s Algorithm | imake</a></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-12-01T18:38:07+08:00"
-              content="2023-12-01">
-          12-01
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <div class="post-title">
-          <a class="post-title-link" href="/Skill/Hexo+Github%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/" itemprop="url">
-            <span itemprop="name">Hexo+Github博客配置</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/Coursera/(3)%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E4%B8%8E%E9%83%A8%E4%BB%B6%E8%AE%BE%E8%AE%A1/" rel="next" title="(3)数字逻辑与部件设计">
+      (3)数字逻辑与部件设计 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-    </div>
-  </div>
   
   
-  
-
   
 
 

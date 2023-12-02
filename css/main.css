@@ -1242,7 +1242,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffb0fc;
+  background: #ff06cd;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2046,19 +2046,27 @@ pre .javascript .function {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  font-family: 'Cascadia Code';
 }
 .category-all-page .category-list-item {
   margin: 5px 10px;
+  border-radius: 6px;
+  padding: 2px 14px;
+  background-color: #555;
 }
 .category-all-page .category-list-count {
   color: #bbb;
 }
 .category-all-page .category-list-count::before {
-  content: ' (';
+  content: '-';
   display: inline;
 }
 .category-all-page .category-list-count::after {
-  content: ') ';
+  content: '';
   display: inline;
 }
 .category-all-page .category-list-child {
