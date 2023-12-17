@@ -1,6 +1,6 @@
 /* global NexT, CONFIG */
 
-HTMLElement.prototype.wrap = function (wrapper) {
+HTMLElement.prototype.wrap = function(wrapper) {
   this.parentNode.insertBefore(wrapper, this);
   this.parentNode.removeChild(this);
   wrapper.appendChild(this);
@@ -11,7 +11,7 @@ NexT.utils = {
   /**
    * Wrap images with fancybox.
    */
-  wrapImageWithFancyBox: function () {
+  wrapImageWithFancyBox: function() {
     document.querySelectorAll('.post-body :not(a) > img, .post-body > img').forEach(element => {
       var $image = $(element);
       var imageLink = $image.attr('data-src') || $image.attr('src');
