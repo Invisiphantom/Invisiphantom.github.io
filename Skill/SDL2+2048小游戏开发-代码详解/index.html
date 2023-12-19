@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ethancao.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="SDL2游戏开发教程：SDL2 游戏开发最小知识栈 - 没事造轮子项目环境配置： SDL2+2048小游戏开发 | Mind City项目代码详解：SDL2+2048小游戏开发-代码详解 | Mind City项目源代码：Invisiphantom&#x2F;2048-Table    相关项目：Invisiphantom&#x2F;Game-Tetris">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDL2+2048小游戏开发-代码详解">
+<meta property="og:url" content="http://www.ethancao.cn/Skill/SDL2+2048%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-%E4%BB%A3%E7%A0%81%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Mind City">
+<meta property="og:description" content="SDL2游戏开发教程：SDL2 游戏开发最小知识栈 - 没事造轮子项目环境配置： SDL2+2048小游戏开发 | Mind City项目代码详解：SDL2+2048小游戏开发-代码详解 | Mind City项目源代码：Invisiphantom&#x2F;2048-Table    相关项目：Invisiphantom&#x2F;Game-Tetris">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-19T01:07:08.000Z">
+<meta property="article:modified_time" content="2023-12-19T02:44:09.000Z">
+<meta property="article:author" content="Ethan Cao">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.ethancao.cn/Skill/SDL2+2048%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-%E4%BB%A3%E7%A0%81%E8%AF%A6%E8%A7%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>SDL2+2048小游戏开发-代码详解 | Mind City</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mind City</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.ethancao.cn/Skill/SDL2+2048%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-%E4%BB%A3%E7%A0%81%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ethan Cao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mind City">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SDL2+2048小游戏开发-代码详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-12-19 09:07:08 / 修改时间：10:44:09" itemprop="dateCreated datePublished" datetime="2023-12-19T09:07:08+08:00">2023-12-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Skill/" itemprop="url" rel="index"><span itemprop="name">Skill</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>SDL2游戏开发教程：<a target="_blank" rel="noopener" href="https://meishizaolunzi.com/sdl2-you-xi-kai-fa-zui-xiao-zhi-shi-zhan/">SDL2 游戏开发最小知识栈 - 没事造轮子</a><br>项目环境配置： <a target="_blank" rel="noopener" href="https://invisiphantom.github.io/Skill/SDL2+2048%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">SDL2+2048小游戏开发 | Mind City</a><br>项目代码详解：<a target="_blank" rel="noopener" href="https://invisiphantom.github.io/Skill/SDL2+2048%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-%E4%BB%A3%E7%A0%81%E8%AF%A6%E8%A7%A3/">SDL2+2048小游戏开发-代码详解 | Mind City</a><br>项目源代码：<a target="_blank" rel="noopener" href="https://github.com/Invisiphantom/2048-Table">Invisiphantom&#x2F;2048-Table</a>  </p>
+<ul>
+<li>相关项目：<a target="_blank" rel="noopener" href="https://github.com/Invisiphantom/Game-Tetris">Invisiphantom&#x2F;Game-Tetris</a></li>
+</ul>
+<span id="more"></span>
+
+<h4 id="class-GameModule"><a href="#class-GameModule" class="headerlink" title="class GameModule"></a>class GameModule</h4><p>游戏的最顶层模块是<code>GameModule</code>游戏模块类<br>负责初始化SDL模块、执行游戏循环和释放SDL模块</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @class GameModule</span></span><br><span class="line"><span class="comment"> * @brief 游戏模块类，负责初始化SDL模块、执行游戏循环和释放SDL模块</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">GameModule</span> &#123;</span><br><span class="line">   <span class="keyword">private</span>:</span><br><span class="line">    SDL_Window* pWin = <span class="literal">nullptr</span>;         <span class="comment">// 窗口指针</span></span><br><span class="line">    SDL_Renderer* pRenderer = <span class="literal">nullptr</span>;  <span class="comment">// 渲染器指针</span></span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* title;        <span class="comment">// 窗口标题</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> FPS = <span class="number">0u</span>;    <span class="comment">// 游戏帧率</span></span><br><span class="line">    SIZE winSize = &#123;<span class="number">0l</span>, <span class="number">0l</span>&#125;;  <span class="comment">// 窗口大小</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 游戏机制GameMechanic类，通过embedGameMechanic()嵌入 */</span></span><br><span class="line">    <span class="comment">/* runGame()就是通过GameMechanic的三个接口来实现游戏循环的 */</span></span><br><span class="line">    GameMechanic* gameMechanic = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">GameModule</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* _title, LONG _winSizeWidth, LONG _winSizeHeight, <span class="type">unsigned</span> <span class="type">int</span> _FPS)</span></span></span><br><span class="line"><span class="function">        : title(_title), winSize(&#123;</span>_winSizeWidth, _winSizeHeight&#125;), <span class="built_in">FPS</span>(_FPS) &#123;&#125;</span><br><span class="line">    ~<span class="built_in">GameModule</span>() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">initGameModules</span><span class="params">()</span></span>;    <span class="comment">// 初始化SDL模块</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">uninitGameModules</span><span class="params">()</span></span>;  <span class="comment">// 释放SDL模块</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">runGame</span><span class="params">()</span> <span class="type">const</span></span>;      <span class="comment">// 开始执行游戏循环</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 暴露SDL的窗口和渲染器指针，用于初始化GameMechanic</span></span><br><span class="line">    <span class="function">SDL_Window* <span class="title">getpWin</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> pWin; &#125;</span><br><span class="line">    <span class="function">SDL_Renderer* <span class="title">getpRenderer</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> pRenderer; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 嵌入游戏机制</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">embedGameMechanic</span><span class="params">(GameMechanic&amp; _GameMechanic)</span> </span>&#123; gameMechanic = &amp;_GameMechanic; &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="GameModule-runGame"><a href="#GameModule-runGame" class="headerlink" title="GameModule::runGame()"></a>GameModule::runGame()</h4><p><code>GameModule::runGame()</code>是游戏的主体循环部分<br>通过SDL的计时器来记录游戏时间并按帧率更新游戏</p>
+<p>在游戏循环内通过调用<code>gameMechanic</code>的三个接口函数来实现游戏</p>
+<ul>
+<li>游戏键鼠交互 <code>gameMechanic-&gt;processGameEvent(evt);</code></li>
+<li>游戏界面渲染 <code>gameMechanic-&gt;renderGame();</code></li>
+<li>游戏状态更新 <code>gameMechanic-&gt;updateGame(frameMS);</code></li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">GameModule::runGame</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> quit = <span class="number">0</span>;</span><br><span class="line">    SDL_Event evt;</span><br><span class="line"></span><br><span class="line">    Uint64 nFrequency, nPrevCounter, nCurrCounter, nElapseCounter;</span><br><span class="line">    <span class="type">float</span> elapseMS = <span class="number">0.0f</span>, lagMS = <span class="number">0.0f</span>, frameMS = <span class="number">1000.0f</span> / FPS;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// SDL的计时器频率</span></span><br><span class="line">    nFrequency = <span class="built_in">SDL_GetPerformanceFrequency</span>();</span><br><span class="line">    nPrevCounter = <span class="built_in">SDL_GetPerformanceCounter</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!quit) &#123;</span><br><span class="line">        <span class="comment">// 处理消息事件</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">SDL_PollEvent</span>(&amp;evt))</span><br><span class="line">            <span class="keyword">if</span> (evt.type == SDL_QUIT)</span><br><span class="line">                quit = <span class="number">1</span>;  <span class="comment">// 窗口关闭，退出循环</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                gameMechanic-&gt;<span class="built_in">processGameEvent</span>(evt);  <span class="comment">// gameMechanic游戏键鼠交互</span></span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            nCurrCounter = <span class="built_in">SDL_GetPerformanceCounter</span>();</span><br><span class="line">            nElapseCounter = nCurrCounter - nPrevCounter;</span><br><span class="line">            nPrevCounter = nCurrCounter;</span><br><span class="line"></span><br><span class="line">            elapseMS = (nElapseCounter * <span class="number">1000.0f</span>) / nFrequency;  <span class="comment">// 计算间隔时间</span></span><br><span class="line">            lagMS += elapseMS;                                   <span class="comment">// 累加间隔时长</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 设置背景色</span></span><br><span class="line">            <span class="built_in">SDL_SetRenderDrawColor</span>(pRenderer, <span class="number">250</span>, <span class="number">248</span>, <span class="number">239</span>, <span class="number">255</span>);</span><br><span class="line">            <span class="built_in">SDL_RenderClear</span>(pRenderer);    <span class="comment">// 清屏</span></span><br><span class="line">            gameMechanic-&gt;<span class="built_in">renderGame</span>();    <span class="comment">// gameMechanic游戏界面渲染</span></span><br><span class="line">            <span class="built_in">SDL_RenderPresent</span>(pRenderer);  <span class="comment">// 刷新渲染屏幕</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (lagMS &gt;= frameMS) &#123;</span><br><span class="line">                gameMechanic-&gt;<span class="built_in">updateGame</span>(frameMS);  <span class="comment">// gameMechanic游戏状态更新</span></span><br><span class="line">                lagMS -= frameMS;                   <span class="comment">// 重置累计间隔时间</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 限制轮询的最高帧率，防止CPU占用过高</span></span><br><span class="line">        <span class="built_in">Sleep</span>(<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="class-GameMechanic"><a href="#class-GameMechanic" class="headerlink" title="class GameMechanic"></a>class GameMechanic</h4><p>游戏的中间层是抽象基类<code>GameMechanic</code><br>它定义了规范派生类需要实现的那三个接口函数<br><code>processGameEvent(evt)</code>、<code>updateGame(frameMS)</code>和<code>renderGame()</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @class GameMechanic</span></span><br><span class="line"><span class="comment"> * @brief 充当GameModule和底层游戏机制的层间接口</span></span><br><span class="line"><span class="comment"> * @details</span></span><br><span class="line"><span class="comment"> * 	定义了规范派生类需要实现的三个接口函数</span></span><br><span class="line"><span class="comment"> * 	这些接口函数在GameModule类的runGame()中被调用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">GameMechanic</span> &#123;</span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">GameMechanic</span>() &#123;&#125;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">GameMechanic</span>() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 处理键鼠事件 */</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">processGameEvent</span><span class="params">(<span class="type">const</span> SDL_Event evt)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 更新游戏时间 */</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">updateGame</span><span class="params">(<span class="type">const</span> <span class="type">float</span> ms)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 渲染游戏界面 */</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">renderGame</span><span class="params">()</span> <span class="type">const</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="Game2048"><a href="#Game2048" class="headerlink" title="Game2048"></a>Game2048</h4><p>游戏的最底层是游戏的实现类<code>Game2048</code><br>它继承自GameMechanic，实现了2048游戏所需的三个接口<br>通过GameModule类的embedGameMechanic()被嵌入到游戏模块类中<br>服务于GameModule::runGame()的游戏主体循环实现</p>
+<h5 id="主要内部变量："><a href="#主要内部变量：" class="headerlink" title="主要内部变量："></a>主要内部变量：</h5><ul>
+<li>游戏状态的六个阶段</li>
+<li>SDL的渲染组件<ul>
+<li>SDL窗口指针</li>
+<li>SDL渲染器指针</li>
+<li>SDL字体指针</li>
+<li>SDL贴图指针</li>
+</ul>
+</li>
+<li>游戏的机制组件<ul>
+<li>随机数生成器</li>
+<li>当前游戏状态</li>
+<li>方格内数字</li>
+<li>历史最高分</li>
+<li>当前分数</li>
+</ul>
+</li>
+</ul>
+<h5 id="主要成员函数："><a href="#主要成员函数：" class="headerlink" title="主要成员函数："></a>主要成员函数：</h5><ul>
+<li>游戏的机制函数<ul>
+<li>随机放置新数字</li>
+<li>初始化方格</li>
+<li>向上移动</li>
+<li>向下移动</li>
+<li>向左移动</li>
+<li>向右移动</li>
+<li>检查是否胜利</li>
+<li>检查是否失败</li>
+</ul>
+</li>
+<li>游戏的资源管理函数<ul>
+<li>加载硬盘中的字体、贴图等资源</li>
+<li>释放游戏资源</li>
+</ul>
+</li>
+<li>游戏的接口函数<ul>
+<li>处理键鼠事件</li>
+<li>更新游戏时间</li>
+<li>渲染游戏界面</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @class Game2048</span></span><br><span class="line"><span class="comment"> * @brief 继承自GameMechanic，实现了2048游戏所需的三个接口</span></span><br><span class="line"><span class="comment"> * @details</span></span><br><span class="line"><span class="comment"> *  通过GameModule类的embedGameMechanic()被嵌入到游戏模块类中</span></span><br><span class="line"><span class="comment"> *  实现了抽象基类GameMechanic类的三个纯虚函数</span></span><br><span class="line"><span class="comment"> *  服务于GameModule::runGame()的游戏主体循环实现</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Game2048</span> : <span class="keyword">public</span> GameMechanic &#123;</span><br><span class="line">    <span class="comment">// 定义六种游戏状态，分别是：准备动画、启动动画、游戏初始化、游戏运行、游戏胜利、游戏失败</span></span><br><span class="line">    <span class="keyword">enum</span> <span class="title class_">UIState</span> &#123; UI_READY = <span class="number">0</span>, UI_GO, UI_INIT, UI_RUN, UI_WIN, UI_DEAD &#125;;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span>:</span><br><span class="line">    SDL_Window* pWin = <span class="literal">nullptr</span>;         <span class="comment">// 窗口指针</span></span><br><span class="line">    SDL_Renderer* pRenderer = <span class="literal">nullptr</span>;  <span class="comment">// 渲染器指针</span></span><br><span class="line"></span><br><span class="line">    TTF_Font* titleFont = <span class="literal">nullptr</span>;      <span class="comment">// 标题字体</span></span><br><span class="line">    TTF_Font* scoreFont = <span class="literal">nullptr</span>;      <span class="comment">// 分数字体</span></span><br><span class="line">    TTF_Font* textFont = <span class="literal">nullptr</span>;       <span class="comment">// 正文字体</span></span><br><span class="line">    SDL_Texture* tScore = <span class="literal">nullptr</span>;      <span class="comment">// 计分板贴图</span></span><br><span class="line">    SDL_Texture* tBoard = <span class="literal">nullptr</span>;      <span class="comment">// 方格底盘贴图</span></span><br><span class="line">    std::map&lt;<span class="type">int</span>, SDL_Texture*&gt; tNums;  <span class="comment">// 方格数字贴图</span></span><br><span class="line"></span><br><span class="line">	std::mt19937 randGen;          <span class="comment">// 随机数生成器</span></span><br><span class="line">    UIState GameState = UI_READY;  <span class="comment">// 当前游戏状态</span></span><br><span class="line">    <span class="type">int</span> board[<span class="number">4</span>][<span class="number">4</span>] = &#123;<span class="number">0</span>&#125;;         <span class="comment">// 方格数据</span></span><br><span class="line">    <span class="type">int</span> bestScore = <span class="number">0</span>;             <span class="comment">// 最高分</span></span><br><span class="line">    <span class="type">int</span> score = <span class="number">0</span>;                 <span class="comment">// 当前分数</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">/* Game2048-Logic.cpp */</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">putNumber</span><span class="params">()</span></span>;  <span class="comment">// 随机放置新数字</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">initBoard</span><span class="params">()</span></span>;  <span class="comment">// 初始化方格</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">moveUp</span><span class="params">()</span></span>;     <span class="comment">// 向上移动</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">moveDown</span><span class="params">()</span></span>;   <span class="comment">// 向下移动</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">moveLeft</span><span class="params">()</span></span>;   <span class="comment">// 向左移动</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">moveRight</span><span class="params">()</span></span>;  <span class="comment">// 向右移动</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">checkWin</span><span class="params">()</span></span>;   <span class="comment">// 检查是否胜利</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">checkDead</span><span class="params">()</span></span>;  <span class="comment">// 检查是否失败</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Game2048</span><span class="params">(SDL_Window* _pWin, SDL_Renderer* _pRenderer)</span></span></span><br><span class="line"><span class="function">        : pWin(_pWin), pRenderer(_pRenderer), GameState(UI_READY) &#123;</span></span><br><span class="line">        randGen.<span class="built_in">seed</span>(std::<span class="built_in">random_device</span>()());  <span class="comment">// 初始化随机数生成器</span></span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">Game2048</span>() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Game2048-Render.cpp */</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">loadResources</span><span class="params">()</span></span>;    <span class="comment">// 加载硬盘中的游戏字体、贴图等资源</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">unloadResources</span><span class="params">()</span></span>;  <span class="comment">// 释放游戏资源</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Game2048-Interface.cpp */</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">processGameEvent</span><span class="params">(<span class="type">const</span> SDL_Event evt)</span></span>;  <span class="comment">// 处理键鼠事件</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">updateGame</span><span class="params">(<span class="type">const</span> <span class="type">float</span> ms)</span></span>;             <span class="comment">// 更新游戏时间</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">renderGame</span><span class="params">()</span> <span class="type">const</span></span>;                     <span class="comment">// 渲染游戏界面</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h4><p>通过GameModule、GameMechanic和Game2048三个类的组合，实现了一个简单的2048游戏<br>并且此架构可以很方便地扩展到其他游戏上，只需要实现GameMechanic的三个接口函数即可</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Skill/SDL2+2048%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="prev" title="SDL2+2048小游戏开发-环境配置">
+      <i class="fa fa-chevron-left"></i> SDL2+2048小游戏开发-环境配置
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#class-GameModule"><span class="nav-number">1.</span> <span class="nav-text">class GameModule</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GameModule-runGame"><span class="nav-number">2.</span> <span class="nav-text">GameModule::runGame()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#class-GameMechanic"><span class="nav-number">3.</span> <span class="nav-text">class GameMechanic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Game2048"><span class="nav-number">4.</span> <span class="nav-text">Game2048</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%86%85%E9%83%A8%E5%8F%98%E9%87%8F%EF%BC%9A"><span class="nav-number">4.1.</span> <span class="nav-text">主要内部变量：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="nav-number">4.2.</span> <span class="nav-text">主要成员函数：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Summary"><span class="nav-number">5.</span> <span class="nav-text">Summary</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ethan Cao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Invisiphantom" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Invisiphantom" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/EthanCao_" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;EthanCao_" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="author" itemprop="copyrightHolder">Ethan Cao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '186b2c447ccc0044ec06',
+      clientSecret: '210ac8b9a106f8e6364b61a51c6a272304a682d9',
+      repo        : 'Invisiphantom.github.io',
+      owner       : 'Invisiphantom',
+      admin       : ['Invisiphantom'],
+      id          : 'caa67006acad7081b74c79990a04e9fd',
+        language: 'zh-CN',
+      distractionFreeMode: false
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+
+    </div>
+</body>
+</html>
