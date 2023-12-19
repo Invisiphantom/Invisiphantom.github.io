@@ -160,7 +160,7 @@ progress {
   vertical-align: baseline;
 }
 textarea {
-  overflow: always;
+  overflow: auto;
 }
 [type='checkbox'],
 [type='radio'] {
@@ -271,10 +271,11 @@ video {
   max-width: 100%;
 }
 hr {
-  background-image: repeating-linear-gradient(-45deg, #ddd, #ddd 4px, transparent 4px, transparent 8px);
+  background-color: #ddd;
   border: 0;
-  height: 3px;
-  margin: 40px 0;
+  height: 1px;
+  margin-top: 40px;
+  margin-bottom: 5px;
 }
 blockquote {
   border-left: 4px solid #ddd;
@@ -1242,7 +1243,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #cbb6d9;
+  background: #ff1d18;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
