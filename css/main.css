@@ -160,7 +160,7 @@ progress {
   vertical-align: baseline;
 }
 textarea {
-  overflow: auto;
+  overflow: always;
 }
 [type='checkbox'],
 [type='radio'] {
@@ -310,7 +310,7 @@ kbd {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-  font-size: 0.875em;
+  font-size: 0.8125em;
   margin: 0 0 20px 0;
   width: 100%;
 }
@@ -495,7 +495,7 @@ code {
   background: #1b1b1b;
   color: #ccc;
   display: flex;
-  font-size: 0.875em;
+  font-size: 0.8125em;
   justify-content: space-between;
   line-height: 1.2;
   padding: 0.5em;
@@ -537,7 +537,7 @@ pre {
 pre code {
   background: none;
   color: #ccc;
-  font-size: 0.875em;
+  font-size: 0.8125em;
   padding: 0;
   text-shadow: none;
 }
@@ -1242,7 +1242,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #9d7470;
+  background: #cbb6d9;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
