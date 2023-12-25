@@ -135,14 +135,14 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
 
   </li>
   </ul>
@@ -302,7 +302,13 @@
 
           </div>
           
-    <div class="comments" id="gitalk-container"></div>
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -357,7 +363,9 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Ethan Cao"
       src="/images/avatar.jpg">
-  <p class="site-author-name" itemprop="name">Ethan Cao</p>
+  <a href="/">
+    <p class="site-author-name" itemprop="name">Ethan Cao</p>
+  </a>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -371,7 +379,6 @@
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-          
         <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
@@ -527,24 +534,25 @@ window.addEventListener('pjax:success', () => {
 
   
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
 <script>
-NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID    : '186b2c447ccc0044ec06',
-      clientSecret: '210ac8b9a106f8e6364b61a51c6a272304a682d9',
-      repo        : 'Invisiphantom.github.io',
-      owner       : 'Invisiphantom',
-      admin       : ['Invisiphantom'],
-      id          : '0a55ebe26ee584b14c1c05acc7cbe9cc',
-        language: 'zh-CN',
-      distractionFreeMode: false
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
-});
+  var disqus_config = function() {
+    this.page.url = "http://www.blog.ethancao.cn/Skill/SDL2+2048%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/";
+    this.page.identifier = "Skill/SDL2+2048小游戏开发-环境配置/";
+    this.page.title = "SDL2+2048小游戏开发-环境配置";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://blog-ethancao.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
     </div>
